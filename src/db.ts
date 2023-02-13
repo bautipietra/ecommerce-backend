@@ -1,4 +1,6 @@
 import { DataSource } from 'typeorm'
+import { Product } from './models/product'
+import { User } from './models/User'
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } =
   process.env
@@ -12,8 +14,9 @@ const db = new DataSource({
   password: DB_PASSWORD,
   port: NUM_DB_PORT,
   database: DB_NAME,
-  entities: [],
-  logging: true
+  entities: [User, Product],
+  logging: true,
+  synchronize: true
 })
 
 export default db
