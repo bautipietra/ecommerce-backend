@@ -1,33 +1,29 @@
 import { Request, Response } from 'express'
-import { Subscribe } from '../models/Subscribe'
 import { User } from '../models/User'
 
 export const createSubscribe = async (req: Request, res: Response) => {
   try {
     const { email } = req.body
 
-    /* If user already exist not create it */
-    const alreadyExist = await Subscribe.findOne({
+    /* If email doesn't exist */
+    const user = await User.findOne({
       where: { email: email }
     })
-    if (alreadyExist)
+    if (!user)
       return res
         .status(400)
-        .send({ message: 'Email is already subscribed' })
+        .send({ message: "The email isn't registered" })
 
-    /* If email isn't subscribed */
-    const userTable = await User.findOne({ where: { email: email } })
-
-    const user = new Subscribe()
-    user.email = email
-    if (userTable) user.user = userTable?.id
-    if (!userTable)
+    /* If email is already subscribed */
+    if (!user.suscribe)
       return res
         .status(400)
-        .send({ message: 'The email is not registered' })
-    const savedUser = await user.save()
+        .send({ message: 'The email is already subscribed' })
 
-    res.send(savedUser)
+    /* Suscribe the email */
+    user.suscribe = true
+    User.update(user.id, user)
+    res.send(user)
   } catch (error) {
     error instanceof Error &&
       res.status(500).send({ message: error.message })
