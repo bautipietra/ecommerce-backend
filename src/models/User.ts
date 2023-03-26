@@ -15,4 +15,13 @@ export class User extends BaseEntity {
 
   @Column()
   password: string
+
+  @Column({ default: false })
+  suscribe: boolean
+
+  @Column("simple-json", { default: false })
+  review: {
+      review: string,
+      rating: number
+  } | false
 }
