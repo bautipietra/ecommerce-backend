@@ -1,8 +1,10 @@
 import { Router } from 'express'
-import { createUser } from '../contollers/user.controllers'
+import { loginUser, registerUser, validateToken } from '../controllers/user.controllers'
 
 const router = Router()
 
-router.route('/user').post(createUser)
+router.route('/user/register').post(registerUser)
+router.route('/user/login').post(loginUser)
+router.route('/user/renew').get(validateToken)
 
 export default router
