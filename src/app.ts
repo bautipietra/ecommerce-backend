@@ -4,6 +4,7 @@ import cors from 'cors'
 
 import userRoutes from './routes/user.routes'
 import subscribeRoutes from './routes/subscribe.routes'
+import reviewRoutes from './routes/review.routes'
 
 const app = express()
 app.use(morgan('dev'))
@@ -19,5 +20,6 @@ app.use(express.json())
 
 app.use(userRoutes)
 app.use(subscribeRoutes)
+app.use(reviewRoutes)
 
 export default app
