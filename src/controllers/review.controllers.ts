@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '../models/User'
 
-export const createSubscribe = async (req: Request, res: Response) => {
+const createReview = async (req: Request, res: Response) => {
   try {
     const { email, review, rating } = req.body
 
@@ -15,7 +15,7 @@ export const createSubscribe = async (req: Request, res: Response) => {
         .send({ message: "The email isn't registered" })
 
     /* If email already sends a review */
-    if (!user.review)
+    if (user.review)
       return res
         .status(400)
         .send({ message: 'You have already send a review' })
@@ -32,3 +32,5 @@ export const createSubscribe = async (req: Request, res: Response) => {
       res.status(500).send({ message: error.message })
   }
 }
+
+export {createReview}

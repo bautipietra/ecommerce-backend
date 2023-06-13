@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '../models/User'
 
-export const createSubscribe = async (req: Request, res: Response) => {
+const createSubscribe = async (req: Request, res: Response) => {
   try {
     const { email } = req.body
 
@@ -15,7 +15,7 @@ export const createSubscribe = async (req: Request, res: Response) => {
         .send({ message: "The email isn't registered" })
 
     /* If email is already subscribed */
-    if (!user.suscribe)
+    if (user.suscribe)
       return res
         .status(400)
         .send({ message: 'The email is already subscribed' })
@@ -29,3 +29,5 @@ export const createSubscribe = async (req: Request, res: Response) => {
       res.status(500).send({ message: error.message })
   }
 }
+
+export {createSubscribe}
