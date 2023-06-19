@@ -23,9 +23,12 @@ const registerUser = async (req: Request, res: Response) => {
     /* Hash password */
     bcrypt.hash(password, 10, async function(err: Error, hash: string) {
       user.password = hash
-      const savedUser = await user.save()
-      res.send(savedUser)
+      await user.save()
     });
+
+    /* Generate token */
+    const token = generateToken(user.id)
+    res.send({ token })
   } catch (error) {
     error instanceof Error &&
       res.status(500).send({ message: error.message })

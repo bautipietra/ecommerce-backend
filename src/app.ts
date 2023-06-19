@@ -10,8 +10,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(
   cors({
-    origin: '*'
-    //origin: ['http://sneakers.bautistapietraroia.com.ar']
+    origin: ['http://sneakers.bautistapietraroia.com.ar']
   })
 )
 app.use(express.json())

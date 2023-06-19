@@ -5,6 +5,6 @@ const router = Router()
 
 router.route('/user/register').post(registerUser)
 router.route('/user/login').post(loginUser)
-router.route('/user/renew').get(validateToken)
+router.route('/user/renew').post(validateToken)
 
 export default router
